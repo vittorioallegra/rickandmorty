@@ -1,0 +1,43 @@
+$card-height: 320px;
+$card-header-height: 40px;
+
+.character-card.MuiCard-root {
+  height: $card-height;
+
+  .MuiCardHeader-root {
+    height: $card-header-height;
+
+    .status-badge {
+      &--alive {
+        .MuiBadge-badge {
+          background-color: $success-color;
+        }
+      }
+
+      &--dead {
+        .MuiBadge-badge {
+          background-color: $error-color;
+        }
+      }
+    }
+  }
+
+  .MuiCardContent-root {
+    padding: 0 #{$base-padding * 2} #{$base-padding * 2};
+    height: calc(100% - #{$card-header-height + $base-padding * 6});
+    overflow: auto;
+
+    .spinner {
+      height: 100%;
+
+      .MuiCircularProgress-root {
+        color: $main-color;
+      }
+    }
+
+    ul,
+    li {
+      padding: 0;
+    }
+  }
+}

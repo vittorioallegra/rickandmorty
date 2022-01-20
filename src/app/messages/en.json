@@ -1,3 +1,32 @@
 {
-  "app": {}
+  "app": {
+    "components": {
+      "characterCard": {
+        "menu": {
+          "profile": "Profile",
+          "showMore": "Show More"
+        },
+        "fields": {
+          "type": "Type or subspecies",
+          "gender": "Gender",
+          "origin": "Origin location",
+          "location": "Last known location"
+        },
+        "list": {
+          "titles": {
+            "origin": "Origin location",
+            "location": "Last known location",
+            "episodes": "Episodes"
+          },
+          "fields": {
+            "name": "Name",
+            "type": "Type",
+            "dimension": "Dimension",
+            "residents": "Number of residents"
+          }
+        },
+        "typeUnknown": "unknown"
+      }
+    }
+  }
 }
