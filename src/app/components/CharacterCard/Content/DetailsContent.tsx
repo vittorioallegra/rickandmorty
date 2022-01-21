@@ -62,9 +62,9 @@ export const DetailsContent: React.FC<IProps> = (props) => {
     return (
         <CardContent>
             <List subheader={<li />}>
-                {getLocationListItems('origin', props.details.origin)}
-                {getLocationListItems('location', props.details.location)}
-                {getEpisodesListItems(props.details.episodes)}
+                {props.details.origin && getLocationListItems('origin', props.details.origin)}
+                {props.details.location && getLocationListItems('location', props.details.location)}
+                {props.details.episodes && getEpisodesListItems(props.details.episodes)}
             </List>
         </CardContent>
     );

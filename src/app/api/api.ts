@@ -1,5 +1,5 @@
-import { getCharacters } from 'rickmortyapi';
-import { Character, Episode, Location } from 'rickmortyapi/dist/interfaces';
+import { getCharacters, getEpisode, getLocation } from 'rickmortyapi';
+import { Character } from 'rickmortyapi/dist/interfaces';
 import { ICharacterDetails, ICharacters } from '../interfaces';
 
 export class RestApi {
@@ -31,18 +31,19 @@ export class RestApi {
     }
 
     async loadDetails(character: Character): Promise<ICharacterDetails> {
-        const origin: Location = await this.loadResource(character.location.url);
-        const location: Location = await this.loadResource(character.location.url);
-        const episodes: Episode[] = await Promise.all(character.episode.map((url) => this.loadResource(url)));
+        const origin = await getLocation(this.getIdFromUrl(character.origin.url));
+        const location = await getLocation(this.getIdFromUrl(character.location.url));
+        const episodes = await getEpisode(character.episode.map((url) => this.getIdFromUrl(url)));
 
         return {
-            origin,
-            location,
-            episodes,
+            origin: origin.status === 200 ? origin.data : undefined,
+            location: location.status === 200 ? location.data : undefined,
+            episodes: episodes.status === 200 ? episodes.data : undefined,
         };
     }
 
-    private async loadResource(url: string): Promise<any> {
-        return (await fetch(url)).json();
+    private getIdFromUrl(url: string): number {
+        const parts = url.split('/');
+        return +parts[parts.length - 1];
     }
 }

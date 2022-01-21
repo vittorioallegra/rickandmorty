@@ -35,35 +35,45 @@ export const CharacterProvider: React.FC = ({ children }) => {
     };
 
     const loadPages = (amount: number) => {
-        const load = async () => {
-            setLoading(true);
-            const result = await restApi.loadPages(amount);
-            setCharacters(result);
-            setLoading(false);
-        };
-        load();
+        setLoading(true);
+        restApi.loadPages(amount).then(
+            (result) => {
+                setCharacters(result);
+                setLoading(false);
+            },
+            (error) => {
+                console.error(error);
+                setLoading(false);
+            },
+        );
     };
 
     const loadPage = (page: number) => {
-        const load = async () => {
-            const result = await restApi.loadPage(page);
-            setCharacters({
-                ...result,
-                items: [...characters.items, ...result.items],
-            });
-        };
-        load();
+        restApi.loadPage(page).then(
+            (result) => {
+                setCharacters({
+                    ...result,
+                    items: [...characters.items, ...result.items],
+                });
+            },
+            (error) => {
+                console.error(error);
+            },
+        );
     };
 
     const loadDetails = (character: Character) => {
-        const load = async () => {
-            const result = await restApi.loadDetails(character);
-            setDetails({
-                ...details,
-                [character.id]: result,
-            });
-        };
-        load();
+        restApi.loadDetails(character).then(
+            (result) => {
+                setDetails({
+                    ...details,
+                    [character.id]: result,
+                });
+            },
+            (error) => {
+                console.error(error);
+            },
+        );
     };
 
     return (
