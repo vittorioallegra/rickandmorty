@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Character } from 'rickmortyapi/dist/interfaces';
-import { Avatar, Card, CardHeader, IconButton, Menu, MenuItem } from '@mui/material';
+import { Avatar, Card, CardHeader, CardMedia, IconButton, Menu, MenuItem } from '@mui/material';
 import { Close, MoreVert } from '@mui/icons-material';
 import { ICharacterDetails } from '../../interfaces';
 import { StatusBadge } from './StatusBadge';
@@ -42,7 +42,8 @@ export const CharacterCard: React.FC<IProps> = (props) => {
     };
 
     return (
-        <Card className="character-card">
+        <Card className={`character-card ${showMore ? 'details' : 'info'}`}>
+            {!showMore && <CardMedia component="img" image={props.character.image} />}
             <CardHeader
                 avatar={
                     <StatusBadge status={props.character.status}>

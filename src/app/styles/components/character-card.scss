@@ -1,8 +1,13 @@
-$card-height: 320px;
+$card-height: 520px;
+$card-image-height: 200px;
 $card-header-height: 40px;
 
 .character-card.MuiCard-root {
   height: $card-height;
+
+  .MuiCardMedia-root {
+    height: $card-image-height;
+  }
 
   .MuiCardHeader-root {
     height: $card-header-height;
@@ -24,7 +29,7 @@ $card-header-height: 40px;
 
   .MuiCardContent-root {
     padding: 0 #{$base-padding * 2} #{$base-padding * 2};
-    height: calc(100% - #{$card-header-height + $base-padding * 6});
+    height: calc(100% - #{$card-image-height + $card-header-height + $base-padding * 6});
     overflow: auto;
 
     .spinner {
@@ -38,6 +43,12 @@ $card-header-height: 40px;
     ul,
     li {
       padding: 0;
+    }
+  }
+
+  &.details {
+    .MuiCardContent-root {
+      height: calc(100% - #{$card-header-height + $base-padding * 6});
     }
   }
 }
