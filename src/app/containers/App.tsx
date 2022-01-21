@@ -1,6 +1,7 @@
 import React from 'react';
 import { i18n } from 'i18next';
 import { I18nextProvider } from 'react-i18next';
+import { CharacterProvider } from '../contexts';
 import { Home } from './Home';
 
 interface IProps {
@@ -16,7 +17,9 @@ class App extends React.Component<IProps> {
     render() {
         return (
             <I18nextProvider i18n={this.props.i18n}>
-                <Home />
+                <CharacterProvider>
+                    <Home />
+                </CharacterProvider>
             </I18nextProvider>
         );
     }
