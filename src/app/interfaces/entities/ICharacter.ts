@@ -8,3 +8,7 @@ export interface ICharacterDetails {
 }
 
 export type ICharacters = IPagination<Character>;
+
+export interface ICharactersDetails {
+    [id: string]: ICharacterDetails;
+}

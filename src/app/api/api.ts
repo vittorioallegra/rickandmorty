@@ -1,8 +1,8 @@
 import { getCharacters, getEpisode, getLocation } from 'rickmortyapi';
 import { Character } from 'rickmortyapi/dist/interfaces';
-import { ICharacterDetails, ICharacters } from '../interfaces';
+import { ICharacterDetails, ICharacters, IRestApi } from '../interfaces';
 
-export class RestApi {
+export class RestApi implements IRestApi {
     async loadPage(page: number): Promise<ICharacters> {
         const response = await getCharacters({ page });
         const { info, results } = response.data;
@@ -15,19 +15,6 @@ export class RestApi {
             page,
             items: results,
         };
-    }
-
-    async loadPages(amount: number): Promise<ICharacters> {
-        const responses = await Promise.all(Array.from(Array(amount)).map((_, page) => this.loadPage(page + 1)));
-        const result = responses.reduce(
-            (acc, response) => ({
-                ...response,
-                items: [...(acc.items || []), ...response.items],
-            }),
-            {} as ICharacters,
-        );
-
-        return result;
     }
 
     async loadDetails(character: Character): Promise<ICharacterDetails> {

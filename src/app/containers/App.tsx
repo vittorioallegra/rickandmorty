@@ -1,28 +1,22 @@
 import React from 'react';
+import { Store } from 'redux';
+import { Provider } from 'react-redux';
 import { i18n } from 'i18next';
 import { I18nextProvider } from 'react-i18next';
-import { CharacterProvider } from '../contexts';
-import { Home } from './Home';
+import { IApplicationStore } from '../interfaces';
+import Home from './Home/Home';
 
 interface IProps {
     i18n: i18n;
+    store: Store<IApplicationStore>;
 }
 
-class App extends React.Component<IProps> {
-    componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-        /* eslint-disable no-console */
-        console.error('App error:', error, errorInfo);
-    }
-
-    render() {
-        return (
-            <I18nextProvider i18n={this.props.i18n}>
-                <CharacterProvider>
-                    <Home />
-                </CharacterProvider>
-            </I18nextProvider>
-        );
-    }
-}
+const App: React.FC<IProps> = (props) => (
+    <I18nextProvider i18n={props.i18n}>
+        <Provider store={props.store}>
+            <Home />
+        </Provider>
+    </I18nextProvider>
+);
 
 export default App;
