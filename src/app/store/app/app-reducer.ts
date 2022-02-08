@@ -43,7 +43,7 @@ export default function appReducer(state: IAppStore = initialState, action: Acti
             };
         case getType(actions.loadPageFailed):
         case getType(actions.loadDetailsFailed):
-            return { ...state, isLoading: false, hasError: true, isLoggedIn: false };
+            return { ...state, isLoading: false, hasError: true };
         default:
             return state;
     }

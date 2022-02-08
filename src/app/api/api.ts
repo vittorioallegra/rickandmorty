@@ -18,14 +18,14 @@ export class RestApi implements IRestApi {
     }
 
     async loadDetails(character: Character): Promise<ICharacterDetails> {
-        const origin = await getLocation(this.getIdFromUrl(character.origin.url));
-        const location = await getLocation(this.getIdFromUrl(character.location.url));
-        const episodes = await getEpisode(character.episode.map((url) => this.getIdFromUrl(url)));
+        const { data: origin } = await getLocation(this.getIdFromUrl(character.origin.url));
+        const { data: location } = await getLocation(this.getIdFromUrl(character.location.url));
+        const { data: episodes } = await getEpisode(character.episode.map((url) => this.getIdFromUrl(url)));
 
         return {
-            origin: origin.status === 200 ? origin.data : undefined,
-            location: location.status === 200 ? location.data : undefined,
-            episodes: episodes.status === 200 ? episodes.data : undefined,
+            origin,
+            location,
+            episodes: Array.isArray(episodes) ? episodes : [episodes],
         };
     }
 
